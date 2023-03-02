@@ -1,34 +1,12 @@
 // ==UserScript==
 // @name         Get Token TEKO
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  Get Bearer token on Frontend
 // @author       _-ShiroNeko-_
-// @match        https://sale-portal.dgl-test1.teko.vn/*
-// @match        https://sale-portal.dgl-dev.teko.vn/*
-// @match        https://sale-portal.dgl-staging.teko.vn/*
-// @match        https://sp3.vnpay.vn/*
-// @match        https://hr-orgchart.dgl-test1.teko.vn/*
-// @match        https://hr-orgchart.dgl-dev.teko.vn/*
-// @match        https://hr-orgchart.dgl-staging.teko.vn/*
-// @match        https://hr-orgchart.vnpay.vn/*
-// @match        https://partner-pilot.vnpaytest.vn/*
-// @match        https://quanlyshop.vnpay.vn/
-// @match        https://ticket-management.dgl-dev.teko.vn/*
-// @match        https://ticket-management.dev.teko.vn/*
-// @match        https://ticket-management.dgl-staging.teko.vn/*
-// @match        https://ticket.vnpay.vn/*
-// @match        https://id-admin.dgl-test1.teko.vn/*
-// @match        https://id-admin.dgl-dev.teko.vn/*
-// @match        https://id-admin.dgl-staging.teko.vn/*
-// @match        https://id-admin-dgl.vnpay.vn/*
-// @match        https://dgl-timesheet.dgl-test1.teko.vn/*
-// @match        https://dgl-timesheet.dgl-dev.teko.vn/*
-// @match        https://dgl-timesheet.dgl-staging.teko.vn/*
-// @match        https://dgl-timesheet.vnpay.vn/*
-// @match        https://ticket-management.dev.teko.vn/*
-// @match        https://ticket-management.stag.teko.vn/*
-// @match        https://ticket-management.teko.vn/*
+// @match        https://*.teko.vn/*
+// @match        https://*.vnpay.vn/*
+// @match        https://*.vnpaytest.vn/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=teko.vn
 // @grant        none
 // ==/UserScript==
