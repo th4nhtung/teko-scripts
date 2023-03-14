@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Get Token TEKO
 // @namespace    http://tampermonkey.net/
-// @version      0.3
+// @version      0.4
 // @description  Get Bearer token on Frontend
 // @author       _-ShiroNeko-_
 // @match        https://*.teko.vn/*
@@ -10,36 +10,45 @@
 // @exclude      https://jira.teko.vn/*
 // @exclude      https://confluence.teko.vn/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=teko.vn
-// @grant        none
+// @grant        unsafeWindow
 // ==/UserScript==
 
 (function() {
     'use strict';
 
     // Your code here...
-    let interval = 2000;
+    let interval = 1000;
     let fail_count = 0;
     let loading = setInterval(function(){
         if (document.getElementsByTagName("header").length > 0) {
-            let token_content_key = null;
-            if (window.REACT_APP_IAM_CLIENT_ID != null) {
-                token_content_key = window.REACT_APP_IAM_CLIENT_ID;
-            } else if (window.REACT_APP_CLIENT_ID != null) {
-                token_content_key = window.REACT_APP_CLIENT_ID;
-            } else if (window.REACT_APP_IAM != null && window.REACT_APP_IAM.DEFAULT_CLIENT_ID != null) {
-                token_content_key = window.REACT_APP_IAM.DEFAULT_CLIENT_ID;
-            } else if (window.config != null && window.config.iam != null && window.config.iam.clientId != null) {
-                token_content_key = window.config.iam.clientId;
-            } else {
-                token_content_key = "";
-            }
-            let token_content = window.localStorage[`tekoid.user.${token_content_key}`];
-            let token = JSON.parse(token_content).accessToken;
+            unsafeWindow.copyTokenToClipboard = function() {
+                let token_content_key = null;
+                let wd = unsafeWindow;
+
+                if (wd.REACT_APP_IAM_CLIENT_ID != null) {
+                    token_content_key = wd.REACT_APP_IAM_CLIENT_ID;
+                } else if (wd.REACT_APP_CLIENT_ID != null) {
+                    token_content_key = wd.REACT_APP_CLIENT_ID;
+                } else if (wd.REACT_APP_IAM != null && wd.REACT_APP_IAM.DEFAULT_CLIENT_ID != null) {
+                    token_content_key = wd.REACT_APP_IAM.DEFAULT_CLIENT_ID;
+                } else if (wd.config != null && wd.config.iam != null && wd.config.iam.clientId != null) {
+                    token_content_key = wd.config.iam.clientId;
+                } else {
+                    token_content_key = "";
+                }
+
+                let token_content = window.localStorage[`tekoid.user.${token_content_key}`];
+                let token = JSON.parse(token_content).accessToken;
+                navigator.clipboard.writeText(token);
+            };
+
             let a = document.createElement("a");
             let getToken = document.createTextNode("Get Token");
+
             a.appendChild(getToken);
             a.title = "Get Token";
-            a.href = `javascript:navigator.clipboard.writeText("${token}");alert("Copied token to clipboard")`;
+            a.href = `javascript:copyTokenToClipboard();alert("Copied token to clipboard")`;
+
             document.getElementsByTagName("header")[0].appendChild(a);
             clearInterval(loading);
         }
